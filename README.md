@@ -69,14 +69,6 @@ Threaded chats with LevelDB.
 
 `reverse` is an optional boolean to reverse the chat history from latest -> earliest. Defaults at earliest -> latest.
 
-### Get parent of threaded chat
-
-    jamon.getParent('you@email.com', <key>, function (err, c) {
-      if (!err) {
-        console.log(c);
-      }
-    });
-
 ## Block a user
 
     jamon.blockUser('user@email.com', function (err, c) {
