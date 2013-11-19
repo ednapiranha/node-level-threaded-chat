@@ -1,0 +1,26 @@
+{
+  "name": "meatspace-jamon",
+  "version": "0.0.1",
+  "description": "Threaded chat with LevelDB",
+  "main": "main.js",
+  "dependencies": {
+    "level": ">= 0.10.0",
+    "level-sublevel": ">= 4.8.0",
+    "concat-stream": ">= 1.1.0"
+  },
+  "devDependencies": {
+    "mocha": ">= 1.9.0",
+    "should": ">= 1.2.2",
+    "nock": ">= 0.18.0"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/meatspaces/node-meatspace-jamon.git"
+  },
+  "keywords": ["leveldb", "chat"],
+  "author": "Edna Piranha <jen@ednapiranha.com> (http://ednapiranha.com)",
+  "license": "BSD"
+}
