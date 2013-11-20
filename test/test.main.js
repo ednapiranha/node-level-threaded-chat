@@ -57,7 +57,6 @@ describe('parallax', function () {
         media: 'data:image/gif;base64',
         recipients: recipients
       }, function (err, c) {
-        console.log('chat message: ', c);
         should.exist(c);
         chatKey = c.senderKey;
         c.message.should.eql('test message');
@@ -109,12 +108,18 @@ describe('parallax', function () {
     });
   });
 
-  describe('.removeChat', function () {
-    it('should delete a chat', function (done) {
-      p.removeChat(chatKey, function (err, status) {
-        should.not.exist(err);
-        p.getChat(chatKey, function (err, c) {
-          should.not.exist(c);
+  describe('.getThread', function () {
+    it('should return a threaded chat', function (done) {
+      var recipients = ['receiver3@email.com'];
+
+      p.addChat('receiver3@email.com', 'test message', {
+        media: 'data:image/gif;base64',
+        recipients: recipients,
+        reply: chatKey
+      }, function (err, c) {
+        should.exist(c);
+        p.getThread(c.reply, false, false, function (err, t) {
+          should.exist(t);
           done();
         });
       });

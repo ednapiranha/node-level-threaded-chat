@@ -1,6 +1,6 @@
 {
   "name": "meatspace-jamon",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Threaded chat with LevelDB",
   "main": "main.js",
   "dependencies": {

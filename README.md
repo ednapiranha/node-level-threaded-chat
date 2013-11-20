@@ -45,7 +45,7 @@ Threaded chats with LevelDB.
 ### Add a chat message
 
     var chat = {
-      media: 'http://someimage.jpg',
+      media: 'data:image/gif;base64',
       recipients: ['user1', 'user2']
     };
 
@@ -56,6 +56,29 @@ Threaded chats with LevelDB.
         }
       });
     });
+
+### Add a chat message to a thread
+
+    var chat = {
+      media: 'data:image/gif;base64',
+      recipients: ['user1', 'user2'],
+      reply: <senderKey>
+    };
+
+    jamon.addChat(user, 'hola!', chat, function (err, c) {
+      if (!err) {
+        jamon.getThread(<senderKey>, <since>, <reverse>, function (err, t) {
+          should.exist(t);
+          done();
+        });
+      }
+    });
+
+`senderKey` is the key of the original message.
+
+`since` is the key from where you want to start getting messages
+
+`reverse` is an optional boolean to reverse the chat history from latest -> earliest. Defaults at earliest -> latest.
 
 ### Get all chats
 

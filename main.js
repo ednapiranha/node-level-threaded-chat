@@ -23,6 +23,7 @@ var Jamon = function (user, options) {
   this.messagesLevel = this.db.sublevel(this.user + '!messages');
   this.followList = this.db.sublevel(this.user + '!followlist');
   this.blockList = this.db.sublevel(this.user + '!blocklist');
+  this.threadLevel;
 
   var self = this;
 
@@ -155,6 +156,27 @@ var Jamon = function (user, options) {
     });
   };
 
+  // Get the most recent chats in a thread
+  this.getThread = function (key, since, reverse, callback) {
+    this.threadLevel = this.db.sublevel(key + '!thread');
+
+    var rs = this.threadLevel.createReadStream({
+      start: since,
+      limit: self.limit,
+      reverse: reverse
+    });
+
+    rs.pipe(concat(function (chats) {
+      callback(null, {
+        chats: chats || []
+      });
+    }));
+
+    rs.on('error', function (err) {
+      callback(err);
+    });
+  };
+
   this.getChat = function (key, callback) {
     this.messagesLevel.get(key, function (err, c) {
       if (err) {
@@ -167,6 +189,7 @@ var Jamon = function (user, options) {
     });
   };
 
+  /*
   this.removeChat = function (key, callback) {
     self.messagesLevel.del(key, function (err) {
       if (err) {
@@ -176,6 +199,7 @@ var Jamon = function (user, options) {
       }
     });
   };
+  */
 
   this.addChat = function (user, chat, options, callback) {
     if (!options || !options.media || !options.recipients) {
@@ -203,13 +227,27 @@ var Jamon = function (user, options) {
           reply: options.reply || false
         };
 
-        self.messagesLevel.put(senderKey, newChat, function (err) {
-          if (err) {
-            callback(err);
-          } else {
-            callback(null, newChat);
-          }
-        });
+        if (newChat.reply) {
+          // reply to a thread
+          self.threadLevel = self.db.sublevel(newChat.reply + '!thread');
+
+          self.threadLevel.put(senderKey, newChat, function (err) {
+            if (err) {
+              callback(err);
+            } else {
+              callback(null, newChat);
+            }
+          });
+        } else {
+          // new thread
+          self.messagesLevel.put(senderKey, newChat, function (err) {
+            if (err) {
+              callback(err);
+            } else {
+              callback(null, newChat);
+            }
+          });
+        }
       } else {
         callback(new Error('cannot send message to this user'));
       }
