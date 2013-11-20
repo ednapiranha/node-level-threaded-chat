@@ -13,7 +13,7 @@ var p = new Jamon('sender@email.com', {
   frequency: 1
 });
 
-describe('parallax', function () {
+describe('jamon', function () {
   after(function () {
     child.exec('rm -rf ./test/db');
   });

@@ -231,23 +231,24 @@ var Jamon = function (user, options) {
           // reply to a thread
           self.threadLevel = self.db.sublevel(newChat.reply + '!thread');
 
-          self.threadLevel.put(senderKey, newChat, function (err) {
-            if (err) {
-              callback(err);
-            } else {
-              callback(null, newChat);
-            }
-          });
         } else {
           // new thread
-          self.messagesLevel.put(senderKey, newChat, function (err) {
-            if (err) {
-              callback(err);
-            } else {
-              callback(null, newChat);
-            }
-          });
+          self.threadLevel = self.db.sublevel(senderKey + '!thread');
         }
+
+        self.threadLevel.put(senderKey, newChat, function (err) {
+          if (err) {
+            callback(err);
+          } else {
+            self.messagesLevel.put(senderKey, newChat, function (err) {
+              if (err) {
+                callback(err);
+              } else {
+                callback(null, newChat);
+              }
+            });
+          }
+        });
       } else {
         callback(new Error('cannot send message to this user'));
       }
