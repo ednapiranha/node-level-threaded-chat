@@ -189,18 +189,6 @@ var Jamon = function (user, options) {
     });
   };
 
-  /*
-  this.removeChat = function (key, callback) {
-    self.messagesLevel.del(key, function (err) {
-      if (err) {
-        callback(err);
-      } else {
-        callback(null, 'Deleted!');
-      }
-    });
-  };
-  */
-
   this.addChat = function (user, chat, options, callback) {
     if (!options || !options.media || !options.recipients) {
       callback(new Error('requires an image and at least 1 recipient'));
@@ -236,11 +224,11 @@ var Jamon = function (user, options) {
           self.threadLevel = self.db.sublevel(senderKey + '!thread');
         }
 
-        self.threadLevel.put(senderKey, newChat, function (err) {
+        self.messagesLevel.put(senderKey, newChat, function (err) {
           if (err) {
             callback(err);
           } else {
-            self.messagesLevel.put(senderKey, newChat, function (err) {
+            self.threadLevel.put(senderKey, newChat, function (err) {
               if (err) {
                 callback(err);
               } else {
