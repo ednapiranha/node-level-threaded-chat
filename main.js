@@ -204,8 +204,8 @@ var Jamon = function (user, options) {
 
     this.blockList.get(user, function (err, u) {
       if (!u) {
-        var senderKey = setTime() + '!' + user;
-        var created = setTime();
+        var senderKey = options.senderKey || setTime() + '!' + user;
+        var created = options.created || setTime();
         var newChat = {
           message: chat,
           media: options.media,
