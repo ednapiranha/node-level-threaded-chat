@@ -160,6 +160,10 @@ var Jamon = function (user, options) {
   this.getThread = function (key, since, reverse, callback) {
     this.threadLevel = this.db.sublevel(key + '!thread');
 
+    if (since) {
+      since = since + '~';
+    }
+
     var rs = this.threadLevel.createReadStream({
       start: since,
       limit: self.limit,
