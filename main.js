@@ -21,6 +21,7 @@ var Jamon = function (user, options) {
     valueEncoding: 'json'
   }));
   this.messagesLevel = this.db.sublevel(this.user + '!messages');
+  this.dashboardLevel = this.db.sublevel(this.user + '!dashboard');
   this.followList = this.db.sublevel(this.user + '!followlist');
   this.blockList = this.db.sublevel(this.user + '!blocklist');
   this.threadLevel;
@@ -137,9 +138,9 @@ var Jamon = function (user, options) {
     });
   };
 
-  // Gets the most recent chats in your stream
+  // Gets the most recent chats in your stream by thread
   this.getChats = function (key, reverse, callback) {
-    var rs = this.messagesLevel.createReadStream({
+    var rs = this.dashboardLevel.createReadStream({
       start: key,
       limit: self.limit,
       reverse: reverse
@@ -223,9 +224,13 @@ var Jamon = function (user, options) {
           // reply to a thread
           self.threadLevel = self.db.sublevel(newChat.reply + '!thread');
 
+          self.dashboardLevel.put(newChat.reply, newChat);
+
         } else {
           // new thread
           self.threadLevel = self.db.sublevel(senderKey + '!thread');
+
+          self.dashboardLevel.put(senderKey, newChat);
         }
 
         self.messagesLevel.put(senderKey, newChat, function (err) {
