@@ -10,7 +10,7 @@ Threaded chats with LevelDB.
 
     var c = new LevelThreadedChat('you@email.com');
 
-where 'you@gmail.com' can be any user identifier.
+where 'you@email.com' can be any user identifier.
 
 ### Follow a user
 
