@@ -121,4 +121,4 @@ where 'you@gmail.com' can be any user identifier.
 
 ## Tests
 
-    > make test
+    > npm test
