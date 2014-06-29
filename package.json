@@ -1,8 +1,8 @@
 {
   "name": "level-threaded-chat",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Threaded chat with LevelDB",
-  "main": "main.js",
+  "main": "index.js",
   "dependencies": {
     "level": "~0.18.0",
     "level-sublevel": "~5.2.0",
