@@ -1,6 +1,6 @@
 {
   "name": "level-threaded-chat",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Threaded chat with LevelDB",
   "main": "main.js",
   "dependencies": {
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/meatspaces/node-meatspace-jamon.git"
+    "url": "git://github.com/meatspaces/node-level-threaded-chat.git"
   },
   "keywords": ["leveldb", "chat"],
   "author": "Edna Piranha <jen@ednapiranha.com> (http://ednapiranha.com)",
