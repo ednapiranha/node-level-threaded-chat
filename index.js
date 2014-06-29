@@ -206,17 +206,19 @@ var LevelThreadedChat = function (user, options) {
   };
 
   this.addChat = function (user, chat, options, callback) {
-    if (!options || !options.media || !options.recipients) {
-      callback(new Error('requires an image and at least 1 recipient'));
+    chat = chat.toString().trim();
+
+    if (!chat) {
+      callback(new Error('chat cannot be empty'));
+      return;
+    }
+
+    if (!options || !options.recipients) {
+      callback(new Error('requires at least 1 recipient'));
       return;
     }
 
     var image = options.media.toString().trim();
-
-    if (!image.match(/^((data:image\/gif;base64)|(data:image\/png;base64))/i)) {
-      callback(new Error('must be a gif or png'));
-      return;
-    }
 
     this.blockList.get(user, function (err, u) {
       if (!u) {

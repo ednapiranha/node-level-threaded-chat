@@ -37,15 +37,25 @@ describe('LevelThreadedChat', function () {
   });
 
   describe('.addChat', function () {
-    it('should not add a new chat to recipients', function (done) {
+    it('should not add a new chat to recipients because of a missing chat', function (done) {
       var recipients = ['receiver@email.com'];
 
-      p.addChat('receiver@email.com', 'test message', {
+      p.addChat('receiver@email.com', '', {
         media: 'http://someimage.jpg',
         recipients: recipients
       }, function (err, c) {
         should.exist(err);
-        err.toString().should.equal('Error: must be a gif or png');
+        err.toString().should.equal('Error: chat cannot be empty');
+        done();
+      });
+    });
+
+    it('should not add a new chat to recipients because of a missing recipient', function (done) {
+      p.addChat('receiver@email.com', 'test message', {
+        media: 'http://someimage.jpg'
+      }, function (err, c) {
+        should.exist(err);
+        err.toString().should.equal('Error: requires at least 1 recipient');
         done();
       });
     });
