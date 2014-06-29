@@ -1,5 +1,5 @@
 {
-  "name": "meatspace-jamon",
+  "name": "level-threaded-chat",
   "version": "1.0.0",
   "description": "Threaded chat with LevelDB",
   "main": "main.js",
