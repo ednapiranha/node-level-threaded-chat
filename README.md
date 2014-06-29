@@ -1,4 +1,4 @@
-# meatspace-jamon
+# Level Threaded Chat
 
 Threaded chats with LevelDB.
 
@@ -8,11 +8,13 @@ Threaded chats with LevelDB.
 
 ## Usage
 
-    var jamon = new Jamon('you@email.com');
+    var c = new LevelThreadedChat('you@email.com');
+
+where 'you@gmail.com' can be any user identifier.
 
 ### Follow a user
 
-    jamon.follow('friend@email.com', function (err, u) {
+    c.follow('friend@email.com', function (err, u) {
       if (!err) {
         console.log(u);
       }
@@ -20,7 +22,7 @@ Threaded chats with LevelDB.
 
 ### Unfollow a user
 
-    jamon.unfollow('friend@email.com', function (err, u) {
+    c.unfollow('friend@email.com', function (err, u) {
       if (!err) {
         console.log(u);
       }
@@ -28,7 +30,7 @@ Threaded chats with LevelDB.
 
 ### Get all followed users
 
-    jamon.getFollowing(function (err, f) {
+    c.getFollowing(function (err, f) {
       if (!err) {
         console.log(f);
       }
@@ -36,7 +38,7 @@ Threaded chats with LevelDB.
 
 ### Verify follower exists
 
-    jamon.isFollowing('friend@email.com', function (err, u) {
+    c.isFollowing('friend@email.com', function (err, u) {
       if (!err) {
         console.log(u);
       }
@@ -50,7 +52,7 @@ Threaded chats with LevelDB.
     };
 
     chat.recipients.forEach(function (user) {
-      jamon.addChat(user, 'hola!', chat, function (err, c) {
+      c.addChat(user, 'hola!', chat, function (err, c) {
         if (!err) {
           console.log(c);
         }
@@ -65,9 +67,9 @@ Threaded chats with LevelDB.
       reply: <senderKey>
     };
 
-    jamon.addChat(user, 'hola!', chat, function (err, c) {
+    c.addChat(user, 'hola!', chat, function (err, c) {
       if (!err) {
-        jamon.getThread(<senderKey>, <since>, <reverse>, function (err, t) {
+        c.getThread(<senderKey>, <since>, <reverse>, function (err, t) {
           should.exist(t);
           done();
         });
@@ -82,7 +84,7 @@ Threaded chats with LevelDB.
 
 ### Get all chats
 
-    jamon.getChats('you@email.com', <key>, <reverse>, function (err, c) {
+    c.getChats('you@email.com', <key>, <reverse>, function (err, c) {
       if (!err) {
         console.log(c);
       }
@@ -94,7 +96,7 @@ Threaded chats with LevelDB.
 
 ## Block a user
 
-    jamon.blockUser('user@email.com', function (err, c) {
+    c.blockUser('user@email.com', function (err, c) {
       if (!err) {
         console.log(c);
       }
@@ -102,7 +104,7 @@ Threaded chats with LevelDB.
 
 ## Unblock a user
 
-    jamon.unblockUser('user@email.com', function (err, c) {
+    c.unblockUser('user@email.com', function (err, c) {
       if (!err) {
         console.log(c);
       }
@@ -110,7 +112,7 @@ Threaded chats with LevelDB.
 
 ## Get a list of blocked users
 
-    jamon.getBlockedUsers(function (err, c) {
+    c.getBlockedUsers(function (err, c) {
       if (!err) {
         console.log(c);
       }
