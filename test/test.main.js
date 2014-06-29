@@ -4,16 +4,16 @@ process.env.NODE_ENV = 'test';
 
 var should = require('should');
 var child = require('child_process');
-var Jamon = require('../main');
+var LevelThreadedChat = require('../index');
 
 var chatKey;
 
-var p = new Jamon('sender@email.com', {
+var p = new LevelThreadedChat('sender@email.com', {
   db: './test/db',
   frequency: 1
 });
 
-describe('jamon', function () {
+describe('LevelThreadedChat', function () {
   after(function () {
     child.exec('rm -rf ./test/db');
   });
