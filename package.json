@@ -1,20 +1,19 @@
 {
   "name": "meatspace-jamon",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "description": "Threaded chat with LevelDB",
   "main": "main.js",
   "dependencies": {
-    "level": ">= 0.10.0",
-    "level-sublevel": ">= 4.8.0",
-    "concat-stream": ">= 1.1.0"
+    "level": "~0.18.0",
+    "level-sublevel": "~5.2.0",
+    "concat-stream": "~1.4.6"
   },
   "devDependencies": {
-    "mocha": ">= 1.9.0",
-    "should": ">= 1.2.2",
-    "nock": ">= 0.18.0"
+    "mocha": "~1.20.1",
+    "should": "~4.0.4"
   },
   "scripts": {
-    "test": "make test"
+    "test": "./node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",
