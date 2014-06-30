@@ -84,7 +84,7 @@ where 'you@email.com' can be any user identifier.
 
 ### Get all chats
 
-    c.getChats('you@email.com', <key>, <reverse>, function (err, c) {
+    c.getChats(<key>, <reverse>, function (err, c) {
       if (!err) {
         console.log(c);
       }

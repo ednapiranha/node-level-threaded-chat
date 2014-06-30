@@ -206,8 +206,6 @@ var LevelThreadedChat = function (user, options) {
   };
 
   this.addChat = function (user, chat, options, callback) {
-    chat = chat.toString().trim();
-
     if (!chat) {
       callback(new Error('chat cannot be empty'));
       return;
